@@ -1,0 +1,136 @@
+import React from 'react'
+
+export const expenses = [
+    {
+        id: 'e1',
+        title: 'A pair of Shoes',
+        price: 59.99,
+        date: '2012-12-19',
+    },
+    {
+        id: 'e2',
+        title: 'Groceries',
+        price: 19.99,
+        date: '2012-12-20',
+    },
+    {
+        id: 'e3',
+        title: 'New TV',
+        price: 699.99,
+        date: '2012-12-21',
+    },
+    {
+        id: 'e4',
+        title: 'Car Insurance',
+        price: 99.99,
+        date: '2012-12-22',
+    },
+    {
+        id: 'e5',
+        title: 'New Desk (Wooden)',
+        price: 450,
+        date: '2012-12-23',
+    },
+    {
+        id: 'e6',
+        title: 'Toilet Paper',
+        price: 10.99,
+        date: '2012-12-24',
+    },
+    {
+        id: 'e7',
+        title: 'New Carpet',
+        price: 229.99,
+        date: '2012-12-25',
+    },
+    {
+        id: 'e8',
+        title: 'Cupboard',
+        price: 99.99,
+        date: '2012-12-26',
+    },
+    {
+        id: 'e9',
+        title: 'New Phone',
+        price: 399.99,
+        date: '2012-12-27',
+    },
+    {
+        id: 'e10',
+        title: 'New Laptop',
+        price: 999.99,
+        date: '2012-12-28',
+    },
+    {
+        id: 'e11',
+        title: 'New Chair',
+        price: 59.99,
+        date: '2012-12-29',
+    },
+    {
+        id: 'e12',
+        title: 'New Table',
+        price: 399.99,
+        date: '2012-12-30',
+    },
+    {
+        id: 'e13',
+        title: 'New Chair',
+        price: 59.99,
+        date: '2012-12-29',
+    },
+    {
+        id: 'e14',
+        title: 'New Table',
+        price: 399.99,
+        date: '2012-12-30',
+    },
+    {
+        id: 'e15',
+        title: 'New Chair',
+        price: 59.99,
+        date: '2012-12-29',
+    },
+    {
+        id: 'e16',
+        title: 'New Table',
+        price: 399.99,
+        date: '2012-12-30',
+    },
+    {
+        id: 'e17',
+        title: 'New Chair',
+        price: 59.99,
+        date: '2012-12-29',
+    },
+    {
+        id: 'e18',
+        title: 'New Table',
+        price: 399.99,
+        date: '2024-11-10',
+      },
+      {
+        id: 'e19',
+        title: 'Groceries',
+        price: 59.49,
+        date: '2024-11-18', 
+      },
+      {
+        id: 'e20',
+        title: 'Gas',
+        price: 35.00,
+        date: '2024-11-17', 
+      },
+      {
+        id: 'e21',
+        title: 'Movie Tickets',
+        price: 25.00,
+        date: '2024-11-16', 
+      },
+      {
+        id: 'e22',
+        title: 'Dinner Out',
+        price: 120.75,
+        date: '2024-11-15', 
+      },
+    ];
