@@ -1,26 +1,82 @@
 import React, { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { ExpensesContext } from "../store/context/expensesContext";
+import Toast from "react-native-toast-message";
+import { postData } from "../util/http";
+import LoadingOverlay from "../UI/LoadingOverlay";
 
 function AddExpenseScreen({ navigation }) {
-    const [expense, setExpense] = useState({
-        id: 'e'+ Math.random().toString(),
-        title: "",
-        price: "",
-        date: new Date().toISOString(),
-    });
+    const [isLoading, setIsLoading] = useState(false);
+  const [expense, setExpense] = useState({
+    title: "",
+    price: "",
+    date: new Date().toISOString().slice(0, 10),
+  });
   const expenseContext = useContext(ExpensesContext);
 
-  const OnAddExpense = () => {
-    const newExpense = {
+  const validateInputs = () => {
+    // Check if title is empty
+    if (!expense.title.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please enter a valid title",
+      });
+      return false; // Validation failed
+    }
+
+    // Check if price is valid
+    const priceValue = parseFloat(expense.price);
+    if (!expense.price || isNaN(priceValue) || priceValue <= 0) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please enter a valid price greater than 0",
+      });
+      return false; // Validation failed
+    }
+
+    return true; // Validation passed
+  };
+
+  const OnAddExpense = async() => {
+
+    if (!validateInputs()) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+
+      const newExpense = {
         ...expense,
         price: parseFloat(expense.price),
-        };
-        console.log(newExpense);
-    expenseContext.addExpense(newExpense);
+      };
+      const id = await postData(newExpense);
 
-    setExpense({id: 'e'+ Math.random().toString(), title: "", price: "", date: new Date().toISOString(),});
-    navigation.goBack();
+      setTimeout(() => {
+        expenseContext.addExpense({...newExpense, id});
+        setIsLoading(false);
+      }, 2000);
+
+
+      setExpense({
+        title: "",
+        price: "",
+        date: new Date().toISOString().slice(0, 10),
+      });
+      navigation.goBack();
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Expense added successfully",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "An error occurred while adding the expense",
+      });
+    }
   };
 
   return (
@@ -41,8 +97,8 @@ function AddExpenseScreen({ navigation }) {
         keyboardType="numeric"
       />
 
-      <Pressable style={styles.addButton} onPress={OnAddExpense}>
-        <Text style={{ color: "#fff", fontWeight: "bold" }}>Add Expense</Text>
+      <Pressable style={styles.addButton} onPress={OnAddExpense} disabled={isLoading}>
+        <Text style={{ color: "#fff", fontWeight: "bold" }}>{ isLoading ? <LoadingOverlay size={'small'}/> : 'Add Expense'}</Text>
       </Pressable>
     </View>
   );
@@ -73,4 +129,5 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
   },
+
 });

@@ -1,14 +1,34 @@
 import React, { useContext, useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { ExpensesContext } from "../store/context/expensesContext";
+import Toast from "react-native-toast-message";
+import { removeData } from "../util/http";
 
 function ExpenseItem({ id, title, price, date }) {
   const [modalVisible, setModalVisible] = useState(false);
   const expenseContext = useContext(ExpensesContext)
 
-  const handleDelete = () => {
-    expenseContext.removeExpense(id);
-    setModalVisible(false);
+  const handleDelete = async () => {
+    try {
+
+       expenseContext.removeExpense(id);
+      await removeData(id);
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Expense deleted successfully",
+      })
+      setModalVisible(false);
+      
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "An error occurred while deleting the expense",
+      })
+      
+    }
+   
   }
 
   return (

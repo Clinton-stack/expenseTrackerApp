@@ -1,23 +1,28 @@
-import { createContext, useState } from "react";
-import { expenses as dummyData } from "../../data/dummy-data";
+import { createContext, useReducer, useState } from "react";
+import expenseReducer from "../reducers/expenseReducer";
 
 
 export const ExpensesContext = createContext()
 
 function ExpensesContextProvider({children}) {
-    const [expenses, setExpenses] = useState(dummyData)
+const [expenses, dispatch] = useReducer(expenseReducer, [])
+
 
     const addExpense = (expense) => {
-        setExpenses((currentExpenses) => [expense, ...currentExpenses])
+        dispatch({type: 'ADD', payload: expense})
     }
     const removeExpense = (id) => {
-        setExpenses((currentExpenses) => currentExpenses.filter((expense) => expense.id !== id))
+        dispatch({type: 'DELETE', payload: id})
+    }
+    const setExpenses = (expenses) => {
+        dispatch({type: 'SET', payload: expenses})
     }
 
     const value = {
         expenses,
         addExpense,
-        removeExpense
+        removeExpense,
+        setExpenses
     }
 
     return (

@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import ExpensesContextProvider from "./store/context/expensesContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddExpenseScreen from "./screens/AddExpenseScreen";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -82,6 +83,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast topOffset={80} />
     </ExpensesContextProvider>
   );
 }
